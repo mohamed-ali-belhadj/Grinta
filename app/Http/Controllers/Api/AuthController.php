@@ -57,6 +57,7 @@ class AuthController extends Controller
          *@param  [string] password
          *@return [string] access_token
          *@return [string] token_type
+         *@return [string] expires_at
         */
         public function login(Request $request) {
             $request->validate([
