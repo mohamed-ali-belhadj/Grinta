@@ -25,4 +25,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function games() {
+        return $this->belongsToMany('App\Game');
+    }
+    public function acceptedGames() {
+        return $this->belongsToMany('App\Game')->wherePivot('status', 'Accepted');
+    }
+    public function waitingGames() {
+        return $this->belongsToMany('App\Game')->wherePivot('status', 'In Progress');
+    }
 }

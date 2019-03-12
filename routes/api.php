@@ -18,6 +18,21 @@ Route::group([
     Route::post('password/reset', 'Api\PasswordResetController@reset');
 });
 
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('accepted_games', 'Api\GameController@getAcceptedGames');
+    Route::get('all_games', 'Api\GameController@getAllGames');
+    Route::get('all_stadiums', 'Api\StadiumController@getAllStadiums');
+    Route::post('stadium', 'Api\StadiumController@store');
+    Route::post('game', 'Api\GameController@store');
+    Route::get('game/{id}', 'Api\GameController@show');
+    Route::delete('game/{id}', 'Api\GameController@destroy');
+    Route::put('accept_game/{id}', 'Api\GameController@accept_game');
+});
+// Update a game.
+//Route::put('game', 'Api\GameController@store');
+
+
+
 
 
 

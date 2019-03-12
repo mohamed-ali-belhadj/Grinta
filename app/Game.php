@@ -15,9 +15,18 @@ class Game extends Model
     protected $fillable = [
         'stadium_id', 'game_title','description', 'price_per_person', 'date', 'time', 'duration', 'players_number_per_team', 'total_players_number', 'is_weekly', 'is_public', 'is_joinable'
     ];
+    protected $appends = ['stadium_name'];
 
     public function stadium() {
         return $this->belongsTo('App\Stadium');
+    }
+
+    public function getStadiumNameAttribute(){
+        return $this->stadium->stadium_name;
+    }
+
+    public function users() {
+        return $this->belongsToMany('App\User');
     }
 
 }
