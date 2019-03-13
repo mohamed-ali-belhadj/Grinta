@@ -26,7 +26,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('game', 'Api\GameController@store');
     Route::get('game/{id}', 'Api\GameController@show');
     Route::delete('game/{id}', 'Api\GameController@destroy');
-    Route::put('accept_game/{id}', 'Api\GameController@accept_game');
+    Route::post('accept_game/{id}', 'Api\UserController@acceptGame');
+    Route::post('decline_game/{id}', 'Api\UserController@declineGame');
+    Route::post('set_user_role/{id}', 'Api\UserController@setUserRole');
 });
 // Update a game.
 //Route::put('game', 'Api\GameController@store');

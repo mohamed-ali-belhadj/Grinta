@@ -9,22 +9,12 @@ use App\Http\Resources\Stadium as StadiumResource;
 
 class StadiumController extends Controller
 {
-    /**
-     * Display a listing of  all  stadiums.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function getAllStadiums()
     {
         $stadiums = Stadium::all();
         return StadiumResource::collection($stadiums);
     }
-    /**
-     * Store a newly created stadium in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $stadium = new Stadium();

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\User;
+use App\Role;
 
 class AuthController extends Controller
 {
@@ -34,9 +35,8 @@ class AuthController extends Controller
                 'email'=>$request->email,
                 'password'=>bcrypt($request->password)
             ]);
-
-
             $user->save();
+            $user->roles()->attach(Role::where('name', 'player')->first());
             $tokenResult= $user->createToken('Personal Access Token');
             $token= $tokenResult->token;
             $token->save();
@@ -48,7 +48,6 @@ class AuthController extends Controller
                     $tokenResult->token->expires_at
                 )->toDateTimeString()
             ]);
-
         }
         /**
          *Login user and create token

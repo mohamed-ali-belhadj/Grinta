@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use Illuminate\Http\Request;
 use Auth;
 use App\Http\Controllers\Controller;
@@ -11,22 +10,13 @@ use App\Http\Resources\Game as GameResource;
 
 class GameController extends Controller
 {
-    /**
-     * Display a listing of  all  games of the authenticated user.
-     *
-     * @return \Illuminate\Http\Response
-    */
-    public function getAllGames() {
+    public function getAllGames(Request $request) {
         $authenticatedUserId = Auth::id();
         $authenticatedUser = User::find($authenticatedUserId);
         $allGames = $authenticatedUser->games;
         return GameResource::collection($allGames);
     }
-    /**
-     * Display a listing of the accepted  games of the authenticated user.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function getAcceptedGames()
     {
        $authenticatedUserId = Auth::id();
@@ -34,12 +24,7 @@ class GameController extends Controller
        $acceptedGames = $authenticatedUser->acceptedGames;
        return GameResource::collection($acceptedGames);
     }
-    /**
-     * Store a newly created game in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         /*$game = $request->isMethod('put') ? Game::findOrFail($request->game_id) : new Game;
@@ -63,12 +48,7 @@ class GameController extends Controller
         else
             return response()->json('An error occured.');
     }
-    /**
-     * Display the specified game.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $game = Game::find($id);
@@ -77,12 +57,7 @@ class GameController extends Controller
         else
             return response()->json('This game is not found.');
     }
-    /**
-     * Remove the specified game from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $game = Game::find($id);
@@ -90,8 +65,5 @@ class GameController extends Controller
             return new GameResource($game);
         else
             return response()->json('This game is not found.');
-    }
-    public function accept_game($id) {
-
     }
 }
