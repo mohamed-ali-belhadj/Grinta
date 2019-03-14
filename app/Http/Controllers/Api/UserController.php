@@ -31,11 +31,11 @@ class UserController extends Controller
         return response()->json('You are about to decline the game.');
     }
 
-    public function setUserRole($id, Request $request) {
+    /*public function setUserRole($id, Request $request) {
         //$request->user()->authorizeRoles(['admin', 'player']);
         $request->user()->authorizeRoles('admin');
         $player = User::find($id);
         $player->roles()->attach(Role::where('name', 'admin')->first());
-    }
+    }*/
 
 }

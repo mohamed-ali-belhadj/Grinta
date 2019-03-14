@@ -20,13 +20,13 @@ class Game extends Model
     public function stadium() {
         return $this->belongsTo('App\Stadium');
     }
-
     public function getStadiumNameAttribute(){
         return $this->stadium->stadium_name;
     }
-
     public function users() {
         return $this->belongsToMany('App\User');
     }
-
+    public function usersCommented() {
+        return $this->belongsToMany('App\User', 'comments');
+    }
 }

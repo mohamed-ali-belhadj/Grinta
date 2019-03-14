@@ -24,22 +24,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function roles() {
-        return $this->belongsToMany('App\Role');
-    }
-    public function authorizeRoles($roles) {
+    /*public function authorizeRoles($roles) {
         if (is_array($roles)) {
             return $this->hasAnyRole($roles) || abort(401, 'This action is unauthorized.');
         }
         return $this->hasRole($roles) || abort(401, 'This action is unauthorized.');
     }
-    // Check multiple roles.
     public function hasAnyRole($roles) {
         return null !== $this->roles()->whereIn('name', $roles)->first();
     }
-    // Check one role.
     public function hasRole($role) {
         return null !== $this->roles()->where('name', $role)->first();
+    }*/
+    public function gamesCommented() {
+        return $this->belongsToMany('App\Game', 'comments');
     }
     public function games() {
         return $this->belongsToMany('App\Game');
