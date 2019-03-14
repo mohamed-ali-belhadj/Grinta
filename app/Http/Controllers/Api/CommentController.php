@@ -8,9 +8,7 @@ use App\Game;
 
 class CommentController extends Controller
 {
-    public function showCommentsInGame($id) {
-        Game::find($id);
-    }
+    public function showCommentsInGame($id) {}
     public function store() {}
     public function destroy($id) {}
 }

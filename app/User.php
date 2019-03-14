@@ -36,9 +36,6 @@ class User extends Authenticatable
     public function hasRole($role) {
         return null !== $this->roles()->where('name', $role)->first();
     }*/
-    public function gamesCommented() {
-        return $this->belongsToMany('App\Game', 'comments');
-    }
     public function games() {
         return $this->belongsToMany('App\Game');
     }
@@ -51,5 +48,8 @@ class User extends Authenticatable
     public function waitingGames() {
         //return $this->belongsToMany('App\Game')->wherePivotIn('status', ['In Progress', 'Declined']);
         return $this->belongsToMany('App\Game')->wherePivot('status', 'In Progress');
+    }
+    public function comments() {
+        return $this->hasMany('App\Comment');
     }
 }

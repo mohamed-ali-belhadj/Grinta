@@ -26,7 +26,7 @@ class Game extends Model
     public function users() {
         return $this->belongsToMany('App\User');
     }
-    public function usersCommented() {
-        return $this->belongsToMany('App\User', 'comments');
+    public function comments() {
+        return $this->hasMany('App\Comment');
     }
 }
