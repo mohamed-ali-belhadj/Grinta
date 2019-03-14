@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Auth;
@@ -49,20 +48,26 @@ class GameController extends Controller
             return response()->json('An error occured.');
     }
 
-    public function show($id)
+    public function show(Request $request)
     {
-        $game = Game::find($id);
+        $game_id = $request->input('game_id');
+        $game = Game::find($game_id);
         if($game)
             return new GameResource($game);
         else
             return response()->json('This game is not found.');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $game = Game::find($id);
-        if($game && $game->delete())
-            return new GameResource($game);
+        $game_id = $request->input('game_id');
+        $game = Game::find($game_id);
+        if($game) {
+            //dd($game->users);
+            $game->users()->detach();
+            $game->delete();
+            return response()->json('This game is succfully deleted.');
+        }
         else
             return response()->json('This game is not found.');
     }

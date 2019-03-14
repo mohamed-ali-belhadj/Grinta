@@ -36,7 +36,7 @@ class AuthController extends Controller
                 'password'=>bcrypt($request->password)
             ]);
             $user->save();
-            $user->roles()->attach(Role::where('name', 'player')->first());
+            //$user->roles()->attach(Role::where('name', 'player')->first());
             $tokenResult= $user->createToken('Personal Access Token');
             $token= $tokenResult->token;
             $token->save();
