@@ -65,6 +65,7 @@ class GameController extends Controller
     {
         $game_id = $request->input('game_id');
         $game = Game::find($game_id);
+        $this->authorize('view', $game);
         if($game)
             return new GameResource($game);
         else

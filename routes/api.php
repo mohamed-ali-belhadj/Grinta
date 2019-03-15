@@ -21,12 +21,12 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('game', 'Api\GameController@show');// Check user === member in that game.
     Route::delete('game', 'Api\GameController@destroy'); // ACL Admin.
     Route::get('players_list_per_game', 'Api\GameController@getPlayersList'); // Check user === member in that game.
-    Route::get('admins_list_per_game', 'Api\GameController@getAdminsList'); // ACL Admin.
+    Route::get('admins_list_per_game', 'Api\GameController@getAdminsList');
     // User Routes
     Route::post('accept_game', 'Api\UserController@acceptGame');
     Route::post('decline_game', 'Api\UserController@declineGame');
     Route::post('set_user_role', 'Api\UserController@setUserRole'); // ACL Admin.
-    Route::post('send_invitation', 'Api\UserController@sendInvitation'); // ACL Admin.
+    Route::post('send_invitation', 'Api\UserController@sendInvitation');
     Route::post('revoke_player_in_game', 'Api\UserController@revokePlayer'); // ACL Admin.
     // Comment Routes
     Route::get('show_comments', 'Api\CommentController@showCommentsInGame');// Check user === member in that game.
