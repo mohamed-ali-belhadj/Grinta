@@ -36,7 +36,6 @@ class AuthController extends Controller
                 'password'=>bcrypt($request->password)
             ]);
             $user->save();
-            //$user->roles()->attach(Role::where('name', 'player')->first());
             $tokenResult= $user->createToken('Personal Access Token');
             $token= $tokenResult->token;
             $token->save();
@@ -73,6 +72,9 @@ class AuthController extends Controller
             $token = $tokenResult->token;
             $token->save();
             return response()->json([
+                'full_name'=>$user->full_name,
+                'user_name'=>$user->user_name,
+                'email'=>$user->email,
                 'access_token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
                 'expires_at' => Carbon::parse(

@@ -26,17 +26,21 @@ class Game extends Model
     public function users() {
         return $this->belongsToMany('App\User');
     }
+    public function confirmedPlayers() {
+        return $this->belongsToMany('App\User')->wherePivot('status', 'Accepted');
+    }
+    public function adminsList() {
+        return $this->belongsToMany('App\User')->wherePivotIn('role', ['admin', 'creator']);
+    }
     public function comments() {
         return $this->hasMany('App\Comment');
     }
-
     public static function boot()
     {
         parent::boot();
         static::deleted(function($game)
         {
             $game->comments()->delete();
-            //$game->users()->delete();
         });
     }
 }

@@ -24,6 +24,19 @@ class GameController extends Controller
        return GameResource::collection($acceptedGames);
     }
 
+    public function getPlayersList(Request $request) {
+       $game_id = $request->input('game_id');
+       $game = Game::find($game_id);
+       $playersList = $game->users;
+       return GameResource::collection($playersList);
+    }
+    public function getAdminsList(Request $request) {
+       $game_id = $request->input('game_id');
+       $game = Game::find($game_id);
+       $adminsList = $game->adminsList;
+       return GameResource::collection($adminsList);
+    }
+
     public function store(Request $request)
     {
         /*$game = $request->isMethod('put') ? Game::findOrFail($request->game_id) : new Game;
@@ -63,7 +76,6 @@ class GameController extends Controller
         $game_id = $request->input('game_id');
         $game = Game::find($game_id);
         if($game) {
-            //dd($game->users);
             $game->users()->detach();
             $game->delete();
             return response()->json('This game is succfully deleted.');

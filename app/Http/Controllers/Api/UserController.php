@@ -39,10 +39,17 @@ class UserController extends Controller
         return response()->json('You are about to decline the game.');
     }
     public function setUserRole(Request $request) {
-        $userId= $request->input('user_id');
+        $user_id= $request->input('user_id');
         $game_id= $request->input('game_id');
         $user = User::find($userId);
         $user->games()->updateExistingPivot($game_id, ['role'=>'admin']);
+        return response()->json('success');
+    }
+    public function revokePlayer(Request $request) {
+        $user_id= $request->input('user_id');
+        $game_id= $request->input('game_id');
+        $user = User::find($user_id);
+        $user->games()->detach($game_id);
         return response()->json('success');
     }
 }
