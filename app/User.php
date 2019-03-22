@@ -37,7 +37,7 @@ class User extends Authenticatable
         return null !== $this->roles()->where('name', $role)->first();
     }*/
     public function games() {
-        return $this->belongsToMany('App\Game');
+        return $this->belongsToMany('App\Game')->withPivot('status');
     }
     public function acceptedGames() {
         return $this->belongsToMany('App\Game')->wherePivot('status', 'Accepted');
