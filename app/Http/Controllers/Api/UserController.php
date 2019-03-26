@@ -22,20 +22,20 @@ class UserController extends Controller
         $game_id = $request->input('game_id');
         $authenticatedUserId = Auth::id();
         $authenticatedUser = User::find($authenticatedUserId);
-        $gameToAccept = $authenticatedUser->waitingGames()->find($game_id);
+        $gameToAccept = $authenticatedUser->games()->find($game_id);
         if (!$gameToAccept)
            return response()->json('This Game is already accepted or not associated to this user.');
-        $authenticatedUser->waitingGames()->updateExistingPivot($game_id, ['status'=>'Accepted']);
+        $authenticatedUser->games()->updateExistingPivot($game_id, ['status'=>'Accepted']);
         return response()->json('Game accepted succefully.');
     }
     public function declineGame(Request $request) {
         $game_id = $request->input('game_id');
         $authenticatedUserId = Auth::id();
         $authenticatedUser = User::find($authenticatedUserId);
-        $gameToDecline = $authenticatedUser->waitingGames()->find($game_id);
+        $gameToDecline = $authenticatedUser->games()->find($game_id);
         if (!$gameToDecline)
            return response()->json('This Game is already declined or not associated to this user.');
-        $authenticatedUser->waitingGames()->updateExistingPivot($game_id, ['status'=>'Declined']);
+        $authenticatedUser->games()->updateExistingPivot($game_id, ['status'=>'Declined']);
         return response()->json('You are about to decline the game.');
     }
     public function setUserRole(Request $request) {
