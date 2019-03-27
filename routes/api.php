@@ -7,6 +7,8 @@ Route::post('password/create', 'Api\PasswordResetController@create');
 Route::get('password/find/{token}', 'Api\PasswordResetController@find');
 Route::post('password/reset', 'Api\PasswordResetController@reset');
 
+Route::get('nearby_stadiums', 'Api\StadiumController@nearbyStadiums');
+
 Route::middleware(['auth:api'])->group(function () {
     // Auth Routes
     Route::get('/logout', 'Api\AuthController@logout');
