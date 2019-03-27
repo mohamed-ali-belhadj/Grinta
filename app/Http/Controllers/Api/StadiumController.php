@@ -34,7 +34,7 @@ class StadiumController extends Controller
     {
         $lat = $request->input('latitude');
         $lng = $request->input('longitude');
-        $results = DB::select(DB::raw('SELECT id, ( 3959 * acos( cos( radians(' . $lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $lng . ') ) + sin( radians(' . $lat .') ) * sin( radians(latitude) ) ) ) AS distance FROM stadiums HAVING distance < ' . 10 . ' ORDER BY distance') );
+        $results = DB::select(DB::raw('SELECT *, ( 3959 * acos( cos( radians(' . $lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $lng . ') ) + sin( radians(' . $lat .') ) * sin( radians(latitude) ) ) ) AS distance FROM stadiums HAVING distance < ' . 10 . ' ORDER BY distance') );
         if($results){
             return ($results);
         }else{
