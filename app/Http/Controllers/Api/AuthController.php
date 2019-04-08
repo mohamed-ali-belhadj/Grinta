@@ -35,18 +35,20 @@ class AuthController extends Controller
                 'email'=>$request->email,
                 'password'=>bcrypt($request->password)
             ]);
-            $user->save();
-            $tokenResult= $user->createToken('Personal Access Token');
-            $token= $tokenResult->token;
-            $token->save();
-
-            return response()->json([
-                'access_token'=>$tokenResult->accessToken,
-                'token_type'=>'Bearer',
-                'expires_at'=>Carbon::parse(
-                    $tokenResult->token->expires_at
-                )->toDateTimeString()
-            ]);
+            if($user->save()){
+                $tokenResult= $user->createToken('Personal Access Token');
+                $token= $tokenResult->token;
+                $token->save();
+    
+                return response()->json([
+                    'access_token'=>$tokenResult->accessToken,
+                    'token_type'=>'Bearer',
+                    'expires_at'=>Carbon::parse(
+                        $tokenResult->token->expires_at
+                    )->toDateTimeString()
+                ]);
+            }
+ 
         }
         /**
          *Login user and create token

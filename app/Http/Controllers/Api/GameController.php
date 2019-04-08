@@ -55,8 +55,14 @@ class GameController extends Controller
         $game->is_weekly = $request->input('is_weekly');
         $game->is_public = $request->input('is_public');
         $game->is_joinable = $request->input('is_joinable');
-        if ($game->save())
+        if ($game->save()){
+            $authenticatedUserId = Auth::id();
+            $authenticatedUser = User::find($authenticatedUserId);
+            $game->users()->attach($authenticatedUserId);
+            $authenticatedUser->games()->updateExistingPivot($game->id, ['status'=>'Accepted']);
+            $authenticatedUser->games()->updateExistingPivot($game->id, ['role'=>'creator']);
             return new GameResource($game);
+        }
         else
             return response()->json('An error occured.');
     }
