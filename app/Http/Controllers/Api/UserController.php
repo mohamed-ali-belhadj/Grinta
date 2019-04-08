@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User as UserResource;
 use Auth;
 use App\Game;
 use App\User;
@@ -11,6 +12,10 @@ use App\Role;
 
 class UserController extends Controller
 {
+    public function getAllUsers(Request $request){
+        $allUsers = User::all();
+        return UserResource::collection($allUsers);
+    }
     public function sendInvitation(Request $request) {
         $userId = $request->input('user_id');
         $gameId = $request->input('game_id');

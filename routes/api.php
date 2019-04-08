@@ -13,6 +13,7 @@ Route::middleware(['auth:api'])->group(function () {
     // Auth Routes
     Route::get('/logout', 'Api\AuthController@logout');
     Route::get('/user', 'Api\AuthController@user');
+    Route::get('/get_all_users', 'Api\UserController@getAllUsers');
     // Stadium Routes
     Route::get('all_stadiums', 'Api\StadiumController@getAllStadiums');
     Route::post('stadium', 'Api\StadiumController@store');
