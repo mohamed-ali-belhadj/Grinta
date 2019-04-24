@@ -62,7 +62,9 @@ class AuthController extends Controller
         public function login(Request $request) {
             $request->validate([
                 'email' => 'required|string|email',
-                'password' => 'required|string'
+                'password' => 'required|string',
+                'lat' => 'required|string',
+                'long' => 'required|string'
             ]);
             $credentials = request(['email', 'password']);
             if(!Auth::attempt($credentials))
@@ -73,6 +75,10 @@ class AuthController extends Controller
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->token;
             $token->save();
+            $user->latitude = $request->input("lat");
+            $user->longitude = $request->input("long");
+            $user->save();
+
             return response()->json([
                 'id'=>$user->id,
                 'full_name'=>$user->full_name,
@@ -104,4 +110,5 @@ class AuthController extends Controller
         public function user(Request $request) { //needs token
             return response()->json($request->user());
         }
+
 }

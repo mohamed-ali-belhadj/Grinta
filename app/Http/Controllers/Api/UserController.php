@@ -9,6 +9,7 @@ use Auth;
 use App\Game;
 use App\User;
 use App\Role;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -56,5 +57,19 @@ class UserController extends Controller
         $user = User::find($user_id);
         $user->games()->detach($game_id);
         return response()->json('success');
+    }
+
+    public function getNearbyUsers(Request $request){
+        $lat = $request->input("lat");
+        $lng = $request->input("long");
+
+        $results = DB::select(DB::raw('SELECT *, ( 3959 * acos( cos( radians(' . $lat . ') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(' . $lng . ') ) + sin( radians(' . $lat .') ) * sin( radians(latitude) ) ) ) AS distance FROM users HAVING distance < ' . 20 . ' ORDER BY distance') );
+        if($results){
+            return ($results);
+        }else{
+            return response()->json('No nearby stadiums found');
+        }
+
+        
     }
 }

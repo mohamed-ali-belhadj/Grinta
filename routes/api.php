@@ -31,6 +31,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('set_user_role', 'Api\UserController@setUserRole'); // ACL Admin.
     Route::post('send_invitation', 'Api\UserController@sendInvitation');
     Route::post('revoke_player_in_game', 'Api\UserController@revokePlayer'); // ACL Admin.
+    Route::get('nearby_users', 'Api\UserController@getNearbyUsers');// get nearby users
     // Comment Routes
     Route::get('show_comments', 'Api\CommentController@showCommentsInGame');// Check user === member in that game.
     Route::post('add_comment', 'Api\CommentController@store'); // Check user === member in that game.
